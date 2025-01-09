@@ -1,5 +1,5 @@
-import Foundation
 import Capacitor
+import Foundation
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
@@ -7,8 +7,8 @@ import Capacitor
  */
 @objc(WebviewPlugin)
 public class WebviewPlugin: CAPPlugin, CAPBridgedPlugin {
-    public let identifier = "WebviewPlugin"
     public let jsName = "Webview"
+    public let identifier = "WebviewPlugin"
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "echo", returnType: CAPPluginReturnPromise)
     ]
@@ -19,5 +19,8 @@ public class WebviewPlugin: CAPPlugin, CAPBridgedPlugin {
         call.resolve([
             "value": implementation.echo(value)
         ])
+    }
+    @objc override public func load() {
+        self.bridge?.webView?.scrollView.bounces = true
     }
 }
